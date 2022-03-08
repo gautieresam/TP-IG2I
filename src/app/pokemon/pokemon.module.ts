@@ -9,6 +9,9 @@ import {MatCardModule} from "@angular/material/card";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatChipsModule} from "@angular/material/chips";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import {MatChipsModule} from "@angular/material/chips";
     MatCardModule,
     MatGridListModule,
     MatFormFieldModule,
-    MatChipsModule
+    MatChipsModule,
+    MatIconModule,
+    MatButtonModule,
+    InfiniteScrollModule
   ]
 })
 export class PokemonModule { }

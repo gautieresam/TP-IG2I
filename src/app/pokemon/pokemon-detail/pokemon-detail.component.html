@@ -1,34 +1,39 @@
 <ng-container *ngIf="pokemons">
-  <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
-      <img mat-card-image><img src="assets/img/sprites/{{ pokemons.id }}.png"><>
-      <mat-list-item role="listitem"><div><span>No. </span>{{ pokemons.id | number:'3.0-1' }}</div></mat-list-item>
+  <mat-grid-list cols="2" rowHeight="300px" >
+    <mat-grid-tile rowspan="2">
+      <div>
+        <img mat-card-sm-image src="assets/img/official-artwork/{{ pokemons.id }}.png">
+        <mat-card-content><p style="text-align: center">No. {{ pokemons.id | number:'3.0-1' }}</p></mat-card-content>
+      </div>
     </mat-grid-tile>
 
-    <mat-grid-tile>
+
+    <mat-grid-tile  rowspan="2">
       <mat-list role="list">
-        <mat-list-item role="listitem"><mat-card-title>{{ pokemons.name }}</mat-card-title></mat-list-item>
-        <mat-list-item role="listitem"><audio controls src="assets/audio/{{pokemons.id}}.mp3"></audio></mat-list-item>
         <mat-list-item role="listitem">
-          <mat-form-field>
-            <mat-chip-list #chipList>
-              <mat-chip>{{ pokemons.types }}</mat-chip>
+          <mat-card-title>{{ pokemons.name }}</mat-card-title>
+          <button mat-icon-button (click)="audio.play()"><mat-icon>play_circle_outline</mat-icon> <audio #audio src="assets/audio/{{pokemons.id}}.mp3"></audio></button></mat-list-item>
+
+
+        <mat-list-item role="listitem">
+            <mat-chip-list *ngFor="let pok of pokemons.types">
+              <mat-chip style="margin-right: 12px;">{{pok}}</mat-chip>
             </mat-chip-list>
-            <input [matChipInputFor]="chipList">
-          </mat-form-field>
         </mat-list-item>
-        <mat-list-item role="listitem"><mat-card-title><span>Taille: </span>{{ pokemons.height | number }}<span> m</span></mat-card-title></mat-list-item>
-        <mat-list-item role="listitem"><mat-card-title><span>Poids: </span>{{ pokemons.weight | number}}<span> kg</span></mat-card-title></mat-list-item>
+
+        <mat-list-item role="listitem"><mat-card-title><span>Taille: </span>{{ pokemons.height | number: '1.1-2' }}<span> m</span></mat-card-title></mat-list-item>
+        <mat-list-item role="listitem"><mat-card-title><span>Poids: </span>{{ pokemons.weight | number: '2.1-2'}}<span> kg</span></mat-card-title></mat-list-item>
 
       </mat-list>
-
 
     </mat-grid-tile>
 
     <mat-grid-tile colspan="2">
-      <div><span>name: </span>{{ pokemons.description }}</div>
+      <mat-card-content><p>{{ pokemons.description }}</p></mat-card-content>
     </mat-grid-tile>
   </mat-grid-list>
+
+  <button routerLink="..">Back</button>
 
 </ng-container>
 

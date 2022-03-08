@@ -6,6 +6,9 @@ import {MatListModule} from "@angular/material/list";
 import { PokemonDetailComponent } from './pokemon-detail/pokemon-detail.component';
 import {RouterModule} from "@angular/router";
 import {MatCardModule} from "@angular/material/card";
+import {MatGridListModule} from "@angular/material/grid-list";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatChipsModule} from "@angular/material/chips";
 
 @NgModule({
   declarations: [
@@ -15,12 +18,15 @@ import {MatCardModule} from "@angular/material/card";
   exports: [
     PokemonListComponent
   ],
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatListModule,
-        RouterModule,
-        MatCardModule
-    ]
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatListModule,
+    RouterModule,
+    MatCardModule,
+    MatGridListModule,
+    MatFormFieldModule,
+    MatChipsModule
+  ]
 })
 export class PokemonModule { }

@@ -1,0 +1,35 @@
+<ng-container *ngIf="pokemons">
+  <mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+      <img mat-card-image><img src="assets/img/sprites/{{ pokemons.id }}.png"><>
+      <mat-list-item role="listitem"><div><span>No. </span>{{ pokemons.id | number:'3.0-1' }}</div></mat-list-item>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-list role="list">
+        <mat-list-item role="listitem"><mat-card-title>{{ pokemons.name }}</mat-card-title></mat-list-item>
+        <mat-list-item role="listitem"><audio controls src="assets/audio/{{pokemons.id}}.mp3"></audio></mat-list-item>
+        <mat-list-item role="listitem">
+          <mat-form-field>
+            <mat-chip-list #chipList>
+              <mat-chip>{{ pokemons.types }}</mat-chip>
+            </mat-chip-list>
+            <input [matChipInputFor]="chipList">
+          </mat-form-field>
+        </mat-list-item>
+        <mat-list-item role="listitem"><mat-card-title><span>Taille: </span>{{ pokemons.height | number }}<span> m</span></mat-card-title></mat-list-item>
+        <mat-list-item role="listitem"><mat-card-title><span>Poids: </span>{{ pokemons.weight | number}}<span> kg</span></mat-card-title></mat-list-item>
+
+      </mat-list>
+
+
+    </mat-grid-tile>
+
+    <mat-grid-tile colspan="2">
+      <div><span>name: </span>{{ pokemons.description }}</div>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+</ng-container>
+
+

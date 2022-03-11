@@ -1,5 +1,6 @@
 
-<input type="text" (change)="recherche()" name="mode" value=""/>
+<input type="text" [(ngModel)]="search" (ngModelChange)="onChange($event)"
+/> name="mode" value=""/>
 
   <mat-nav-list infiniteScroll [scrollWindow]="false" (scrolled)="onScroll()" style="overflow: auto;height: calc(100vh - 60px)">
 

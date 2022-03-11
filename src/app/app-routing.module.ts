@@ -8,7 +8,6 @@ const routes: Routes = [
   { path: 'pokemons', component: PokemonListComponent },
   { path: 'pokemons/:id', component: PokemonDetailComponent },
   { path: '', component: PokedexComponent },
-
   {path: '', redirectTo :'pokemons',pathMatch:'full'}
 
 ];

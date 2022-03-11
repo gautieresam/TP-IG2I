@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {PokemonService} from "../pokemon.service";
 import {Pokemon} from "../models/pokemon.model";
 import {concat} from "rxjs";
@@ -12,6 +12,18 @@ import {PagedData} from "../models/paged-data.model";
 export class PokemonListComponent implements OnInit {
 
   pokemons ?: PagedData<Pokemon>;
+  search : string | undefined;
+  hasSearched : boolean = false;
+
+  onChange($event: any) {
+    console.log($event);
+
+    if(this.search && this.search.length!=0){
+      this.pokemonService.getPokemonsBySearch($event).subscribe(pokemons => {
+        this.pokemons=pokemons;
+      });
+    }
+  }
 
   constructor(private pokemonService: PokemonService) {
   }
@@ -27,7 +39,6 @@ export class PokemonListComponent implements OnInit {
 
   recherche(): void {
     console.log("Recherche");
-
   }
 
   onScroll(): void {
@@ -39,4 +50,6 @@ export class PokemonListComponent implements OnInit {
 
     });
   }
+
+
 }

@@ -26,6 +26,12 @@ export class PokemonService {
   }
 
   // Cette fonction va permettre de faire un appel vers un pokemon pour GET les details
+  getPokemonsBySearch(search:any): Observable<PagedData<Pokemon>> {
+    return this.http.get<PagedData<Pokemon>>(`${this.pokemonApiUrl}/pokemons?search=${search}`);
+  }
+
+
+  // Cette fonction va permettre de faire un appel vers un pokemon pour GET les details
   getPokemonsById(id:number): Observable<PokemonDetail> {
     return this.http.get<PokemonDetail>(`${this.pokemonApiUrl}/pokemons/${id}`);
   }

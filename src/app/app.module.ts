@@ -9,6 +9,7 @@ import {PokemonModule} from "./pokemon/pokemon.module";
 
 import {Location} from "@angular/common";
 import {PokemonDetailComponent} from "./pokemon/pokemon-detail/pokemon-detail.component";
+import {InfiniteScrollModule} from "ngx-infinite-scroll";
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import {PokemonDetailComponent} from "./pokemon/pokemon-detail/pokemon-detail.co
     BrowserAnimationsModule,
     HttpClientModule,
     PokemonModule,
+    InfiniteScrollModule
   ],
   providers: [],
   bootstrap: [AppComponent]

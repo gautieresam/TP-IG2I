@@ -12,6 +12,7 @@ export class PokemonDetailComponent implements OnInit {
 
   @Input() pokemons : PokemonDetail | undefined;
 
+
   constructor(
     private route: ActivatedRoute,
     private pokemonservice: PokemonService,
@@ -20,12 +21,11 @@ export class PokemonDetailComponent implements OnInit {
   ngOnInit(): void {
     console.log("toto")      ;
 
-    this.getPokemonsById();
+    this.pokemonservice.idpokquiestclique.subscribe(id => this.getPokemonsById(id));
   }
 
-  getPokemonsById(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.pokemonservice.getPokemonsById(id)
+  getPokemonsById(id : number): void {
+      this.pokemonservice.getPokemonsById(id)
       .subscribe(pokemons => this.pokemons=pokemons);
   }
 }

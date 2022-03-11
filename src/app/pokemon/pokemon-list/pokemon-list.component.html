@@ -1,6 +1,11 @@
-<mat-nav-list>
-  <mat-list-item *ngFor="let pok of pokemons"  routerLink="./{{pok.id}}">
-    <img matListAvatar src="assets/img/sprites/{{ pok.id }}.png">
+
+<input type="text" (change)="recherche()" name="mode" value=""/>
+
+  <mat-nav-list infiniteScroll [scrollWindow]="false" (scrolled)="onScroll()" style="overflow: auto;height: calc(100vh - 60px)">
+
+  <mat-list-item *ngFor="let pok of pokemons?.data"  (click)="display_detail(pok.id)" >
+    <img matListAvatar src="assets/img/sprites/{{ pok.id }}.png" >
+    <span>{{pok.id}}- </span>
     <span>{{pok.name}}</span>
   </mat-list-item>
 </mat-nav-list>

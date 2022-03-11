@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable, Output} from '@angular/core';
 import {Observable} from "rxjs";
 import {Pokemon} from "./models/pokemon.model";
 import {HttpClient} from "@angular/common/http";
@@ -14,17 +14,20 @@ export class PokemonService {
 
   constructor(private http:HttpClient ) { }
 
+  @Output() idpokquiestclique: EventEmitter<number> = new EventEmitter();
 
 
   getPokemons(): Observable<PagedData<Pokemon>> {
-    return this.http.get<PagedData<Pokemon>>(this.pokemonApiUrl+'/pokemons');
+    return this.http.get<PagedData<Pokemon>>(this.pokemonApiUrl+'/pokemons?limit=20');
   }
 
+  getPokemonsscroll(offset:number, limit:number): Observable<PagedData<Pokemon>> {
+    return this.http.get<PagedData<Pokemon>>(this.pokemonApiUrl+'/pokemons?limit'+limit+'&offset='+offset);
+  }
 
   // Cette fonction va permettre de faire un appel vers un pokemon pour GET les details
   getPokemonsById(id:number): Observable<PokemonDetail> {
     return this.http.get<PokemonDetail>(`${this.pokemonApiUrl}/pokemons/${id}`);
   }
-
 
 }

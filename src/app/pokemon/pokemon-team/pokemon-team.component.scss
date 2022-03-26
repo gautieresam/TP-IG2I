@@ -7,13 +7,8 @@
   height : 100px
 }
 
-.pkm{
-  cursor: pointer;
-}
 
-.pkm:hover{
-  background-color: rgba(255,255,255,0.1) ;
-}
+
 
 .bouton{
   top: 88px;
@@ -32,11 +27,10 @@
 }
 
 .title{
-  background-color: #660066;
+  background-color: cornflowerblue;
   top : calc(50% - 50px);
   left : calc(50% - 50px);
   width : 100px;
-  padding : 1px;
-  border-radius: 5px;
+  padding : 4px;
   text-align: center;
 }

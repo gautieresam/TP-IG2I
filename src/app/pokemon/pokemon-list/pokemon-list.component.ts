@@ -1,56 +1,69 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PokemonService} from "../pokemon.service";
-import {Pokemon} from "../models/pokemon.model";
-import {concat} from "rxjs";
-import {PagedData} from "../models/paged-data.model";
+import { Component, OnInit } from '@angular/core';
+import { PagedData } from '../models/paged-data.model';
+import { Pokemon } from '../models/pokemon.model';
+import { PokemonService } from '../service/pokemon.service';
+import { Output, EventEmitter } from '@angular/core';
+import { debounceTime, distinctUntilChanged, Observable, Subject, switchMap, forkJoin } from 'rxjs';
+import { TeamService } from '../service/team.service';
+import { AuthService } from '../service/auth.service';
+import { Credentials } from '../models/credentials.model';
+import { environment } from 'src/environments/environment';
+import { Token } from '../models/token.models';
 
 @Component({
   selector: 'app-pokemon-list',
   templateUrl: './pokemon-list.component.html',
   styleUrls: ['./pokemon-list.component.scss']
 })
+
+
 export class PokemonListComponent implements OnInit {
 
-  pokemons ?: PagedData<Pokemon>;
-  search : string | undefined;
-  hasSearched : boolean = false;
+  constructor(
+    private pokemonService: PokemonService
+  ) { }
 
-  onChange($event: any) {
-    console.log($event);
+  @Output() newItemEvent = new EventEmitter<string>();
 
-    if(this.search && this.search.length!=0){
-      this.pokemonService.getPokemonsBySearch($event).subscribe(pokemons => {
-        this.pokemons=pokemons;
-      });
-    }else{
-      this.ngOnInit();
-    }
-  }
-
-  constructor(private pokemonService: PokemonService) {
+  sendFather(value : any) {
+    this.newItemEvent.emit(value);
   }
 
   ngOnInit(): void {
-    this.pokemonService.getPokemons().subscribe(pokemons => this.pokemons = pokemons)
+    this.initFetch()
   }
 
-  display_detail(id: number) :void{
-    console.log("Identifiant du pokemeon clik : "+id)
-    this.pokemonService.idpokquiestclique.emit(id);
-  }
-
-  recherche(): void {
-    console.log("Recherche");
+  initFetch(): void {
+    this.offset = 0
+    this.limit = 20
+    this.pokemonService.getPokemonsParams(this.offset, this.limit).subscribe(obj => this.pokemons = obj.data)
   }
 
   onScroll(): void {
-    //console.log(this.pokemons);
-    this.pokemonService.getPokemonsscroll(this.pokemons!.offset + this.pokemons!.limit, this.pokemons!.limit).subscribe(pokemons => {
-      this.pokemons!.data = this.pokemons!.data.concat(pokemons.data);
-      this.pokemons!.offset = pokemons.offset;
-      this.pokemons!.limit = pokemons.limit;
-    });
+    if(this.offset == 0)
+      this.offset = 20
+    else
+      this.offset += 5
+    this.pokemonService.getPokemonsParams(this.offset, 5).subscribe(obj => this.pokemons = this.pokemons?.concat(obj.data))
   }
 
+  search(event : any){
+    if(this.searchValue === '')
+      this.initFetch()
+    else
+      this.pokemonService.getPokemonsSearch(this.searchValue).subscribe(obj => this.pokemons = obj.data)
+  }
+
+  offset = 0
+
+  limit = 20
+
+  pokemons ?: Pokemon[]
+
+  equipe ?: Pokemon[]
+
+  searchValue = ''
+
+  affTeam = false
 
 }

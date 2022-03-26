@@ -1,39 +1,44 @@
-<ng-container *ngIf="pokemons">
-
-  <mat-grid-list cols="2" rowHeight="300px" >
-    <mat-grid-tile rowspan="2">
-      <div>
-        <img mat-card-sm-image src="assets/img/official-artwork/{{ pokemons.id }}.png">
-        <mat-card-content><p style="text-align: center">No. {{ pokemons.id | number:'3.0-1' }}</p></mat-card-content>
+<mat-card >
+  <mat-grid-list cols="2" rowHeight="3:2">
+    <mat-grid-tile>
+      <div class="item">
+        <img *ngIf="pokemon" src="assets/img/official-artwork/{{pokemon?.id}}.png">
+        <span class="caption">No. {{ pokemon?.id | number  : '3.0-0' }}</span>
       </div>
     </mat-grid-tile>
-
-
-    <mat-grid-tile  rowspan="2">
-      <mat-list role="list">
-        <mat-list-item role="listitem">
-          <mat-card-title>{{ pokemons.name }}</mat-card-title>
-          <button mat-icon-button (click)="audio.play()"><mat-icon>play_circle_outline</mat-icon> <audio #audio src="assets/audio/{{pokemons.id}}.mp3"></audio></button></mat-list-item>
-
-
-        <mat-list-item role="listitem">
-            <mat-chip-list *ngFor="let pok of pokemons.types">
-              <mat-chip style="margin-right: 12px;">{{pok}}</mat-chip>
-            </mat-chip-list>
+    <mat-grid-tile>
+      <mat-list>
+        <mat-list-item>
+          {{pokemon?.name}}&nbsp;
+          <mat-icon onclick="document.getElementById('player').play()" title="Jouer le cri du pokémon">play_circle_outline</mat-icon>
         </mat-list-item>
-
-        <mat-list-item role="listitem"><mat-card-title><span>Taille: </span>{{ pokemons.height | number: '1.1-2' }}<span> m</span></mat-card-title></mat-list-item>
-        <mat-list-item role="listitem"><mat-card-title><span>Poids: </span>{{ pokemons.weight | number: '2.1-2'}}<span> kg</span></mat-card-title></mat-list-item>
-
+        <mat-list-item>
+          <mat-chip-list aria-label="Fish selection">
+            <mat-chip *ngFor="let type of pokemon?.types">
+              {{type}}
+            </mat-chip>
+          </mat-chip-list>
+        </mat-list-item>
+        <mat-list-item>Taille: {{ pokemon?.height | number  : '1.1-1' }} m</mat-list-item>
+        <mat-list-item>Poids: {{ pokemon?.weight | number  : '1.1-1' }} kg</mat-list-item>
       </mat-list>
 
     </mat-grid-tile>
+    <mat-grid-tile [colspan]="2">
+      <mat-list>
+        <mat-list-item>
+          {{pokemon?.description}}
+        </mat-list-item>
+      </mat-list>
 
-    <mat-grid-tile colspan="2">
-      <mat-card-content><p>{{ pokemons.description }}</p></mat-card-content>
     </mat-grid-tile>
   </mat-grid-list>
+</mat-card>
 
-</ng-container>
-
-
+<audio
+  id="player"
+  autoplay
+  src="assets/audio/{{ pokemon?.id}}.mp3">
+  Your browser does not support the
+  <code>audio</code> element.
+</audio>

@@ -1,7 +1,10 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {PokemonService} from "../pokemon.service";
-import {ActivatedRoute} from "@angular/router";
-import {PokemonDetail} from "../models/pokemon-detail.model";
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Pokemon } from '../models/pokemon.model';
+import { PokemonService } from '../service/pokemon.service';
+import { Location } from '@angular/common'
+import { TeamService } from '../service/team.service';
+
 
 @Component({
   selector: 'app-pokemon-detail',
@@ -10,22 +13,34 @@ import {PokemonDetail} from "../models/pokemon-detail.model";
 })
 export class PokemonDetailComponent implements OnInit {
 
-  @Input() pokemons : PokemonDetail | undefined;
-
-
   constructor(
     private route: ActivatedRoute,
-    private pokemonservice: PokemonService,
+    private pokemonService: PokemonService,
+    private location : Location,
+    private teamService: TeamService,
   ) { }
 
   ngOnInit(): void {
-    console.log("toto")      ;
-
-    this.pokemonservice.idpokquiestclique.subscribe(id => this.getPokemonsById(id));
+    this.getPokemon(1)
   }
 
-  getPokemonsById(id : number): void {
-      this.pokemonservice.getPokemonsById(id)
-      .subscribe(pokemons => this.pokemons=pokemons);
+  getPokemon(id : number) : void {
+    this.pokemonService.getPokemon(id).subscribe(obj => this.pokemon = obj)
   }
+
+  goBack() : void {
+    this.location.back()
+  }
+
+  ngOnChanges(): void {
+    this.getPokemon(this.id)
+  }
+
+
+  @Input() id = 1
+
+  pokemon ?: Pokemon
+
+  inTeam = false
+
 }

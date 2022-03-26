@@ -1,12 +1,20 @@
+<mat-form-field class="example-full-width" appearance="fill">
+  <mat-label>Pokemon</mat-label>
+  <input matInput [(ngModel)]="searchValue" (ngModelChange)="search($event)" placeholder="name"/>
+</mat-form-field>
 
-<input type="text" [(ngModel)]="search" (ngModelChange)="onChange($event)"
-/> name="mode" value=""/>
-
-  <mat-nav-list infiniteScroll [scrollWindow]="false" (scrolled)="onScroll()" style="overflow: auto;height: calc(100vh - 60px)">
-
-  <mat-list-item *ngFor="let pok of pokemons?.data"  (click)="display_detail(pok.id)" >
-    <img matListAvatar src="assets/img/sprites/{{ pok.id }}.png" >
-    <span>{{pok.id}}- </span>
-    <span>{{pok.name}}</span>
+<mat-nav-list
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  [scrollWindow]="false"
+  (scrolled)="onScroll()"
+>
+  <mat-list-item
+    *ngFor="let pokemon of pokemons"
+    (click)="sendFather(pokemon.id)"
+  >
+    <img src="assets/img/sprites/{{pokemon.id}}.png" height="64" witdh="64">{{pokemon.id}}. {{pokemon.name}}
   </mat-list-item>
 </mat-nav-list>

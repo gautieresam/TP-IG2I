@@ -1,0 +1,23 @@
+<img src="assets/img/titles/lateam.png" class="image">
+<mat-grid-list cols="2" rowHeight="1:1" class="team">
+  <mat-grid-tile
+    *ngFor="let pokemon of equipe; let index = index;"
+  >
+    <div>
+      <div >
+        <img src="assets/img/sprites/{{pokemon.id}}.png" height="64" witdh="64" (click)="sendFather(pokemon.id)" class="pkm abs tile" *ngIf="pokemon.id != 0">
+        <img src="assets/img/sprites/{{pokemon.id}}.png" height="64" witdh="64" class="abs tile" *ngIf="pokemon.id == 0">
+      </div>
+      <mat-icon class="bouton abs" *ngIf="pokemon.id != 0" (click)="removeFromTeam(index)" title="Retirer le pokemon de l'équipe" >cancel</mat-icon>
+      <mat-icon class="bouton abs" *ngIf="index == emptySlot" (click)="addToTeam(index)" title="Ajouter le pokémon courant à l'équipe" >add_shopping_cart</mat-icon>
+      <div class="abs title" *ngIf="pokemon.id != 0">{{pokemon.name}}</div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
+<mat-spinner
+  *ngIf="showSpinner"
+  style="margin-left: 100px;"
+></mat-spinner>
+
+

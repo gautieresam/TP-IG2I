@@ -22,6 +22,8 @@ export class PokemonListComponent implements OnInit {
       this.pokemonService.getPokemonsBySearch($event).subscribe(pokemons => {
         this.pokemons=pokemons;
       });
+    }else{
+      this.ngOnInit();
     }
   }
 
@@ -47,7 +49,6 @@ export class PokemonListComponent implements OnInit {
       this.pokemons!.data = this.pokemons!.data.concat(pokemons.data);
       this.pokemons!.offset = pokemons.offset;
       this.pokemons!.limit = pokemons.limit;
-
     });
   }
 

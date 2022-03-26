@@ -1,1 +1,0 @@
-      <mat-list-item role="listitem"><div><span>No. </span>{{ pokemons.id | number:'3.0-1' }}</div></mat-list-item>

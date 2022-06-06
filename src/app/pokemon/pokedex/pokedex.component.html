@@ -1,0 +1,9 @@
+
+<mat-drawer-container class="example-container" style="float:left;">
+  <mat-drawer mode="side" opened class="volet" fixed><app-pokemon-list (newItemEvent)="getChild($event)"></app-pokemon-list></mat-drawer>
+  <mat-drawer-content class="contenu">
+    <app-pokemon-detail [id] = "id"></app-pokemon-detail>
+  </mat-drawer-content>
+</mat-drawer-container>
+<app-pokemon-team [id] = "id" style="float:left;" (newItemEvent)="getChild($event)"></app-pokemon-team>
+
